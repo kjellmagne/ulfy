@@ -6,11 +6,13 @@ const asset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 const storeLinks = [
   {
     alt: "Last ned på App Store",
+    available: true,
     href: "https://www.wix.com/templateslp/studio-external-link",
     src: asset("assets/apple-store.png"),
   },
   {
     alt: "Last ned på Google Play",
+    available: false,
     href: "https://www.wix.com/templateslp/studio-external-link",
     src: asset("assets/google-play.png"),
   },
@@ -60,22 +62,19 @@ const securityCards = [
 const pricingCards = [
   {
     delay: 20,
-    icon: asset("assets/icon-affordable.png"),
-    index: "(01)",
+    icon: "wallet",
     text: "Laget for å spare tid uten å gjøre innkjøpet tungt eller komplisert.",
     title: "Rimelig",
   },
   {
     delay: 110,
-    icon: asset("assets/privacy-illustration.png"),
-    index: "(02)",
+    icon: "shield",
     text: "Et tydelig alternativ for virksomheter som ikke kan kompromisse på sikkerhet.",
     title: "Best personvern",
   },
   {
     delay: 200,
-    icon: asset("assets/icon-subscription.png"),
-    index: "(03)",
+    icon: "refresh",
     text: "Velg selv modellen som passer best for teamet ditt.",
     title: "Kjøp eller abonnement",
   },
@@ -108,6 +107,46 @@ const testimonials = [
     quote: "Vi legger til flere kundeeksempler så snart de er klare.",
   },
 ];
+
+function PricingIcon({ type }) {
+  const commonProps = {
+    "aria-hidden": "true",
+    fill: "none",
+    stroke: "currentColor",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeWidth: "1.8",
+    viewBox: "0 0 24 24",
+  };
+
+  if (type === "wallet") {
+    return (
+      <svg {...commonProps}>
+        <path d="M4 8.5A2.5 2.5 0 0 1 6.5 6H18a2 2 0 0 1 2 2v1H6.5A2.5 2.5 0 0 0 4 11.5z" />
+        <path d="M4 11.5A2.5 2.5 0 0 1 6.5 9H20v7a2 2 0 0 1-2 2H6.5A2.5 2.5 0 0 1 4 15.5z" />
+        <path d="M16.5 13.5h3" />
+      </svg>
+    );
+  }
+
+  if (type === "shield") {
+    return (
+      <svg {...commonProps}>
+        <path d="M12 3l6 2.5v5.7c0 4.2-2.5 8-6 9.8-3.5-1.8-6-5.6-6-9.8V5.5z" />
+        <path d="M9.5 12.3l1.8 1.8 3.4-3.6" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg {...commonProps}>
+      <path d="M20 7v5h-5" />
+      <path d="M4 17v-5h5" />
+      <path d="M7.5 8.5A6 6 0 0 1 18 7" />
+      <path d="M16.5 15.5A6 6 0 0 1 6 17" />
+    </svg>
+  );
+}
 
 function useSiteEffects() {
   useEffect(() => {
@@ -394,7 +433,7 @@ function SiteHeader() {
           <a href="#om" onClick={() => setIsOpen(false)}>Om</a>
           <a href="#priser" onClick={() => setIsOpen(false)}>Produkter og priser</a>
           <a href="#hvordan" onClick={() => setIsOpen(false)}>Hvordan virker dette?</a>
-          <a className="button button-small" href="#download" onClick={() => setIsOpen(false)}>
+          <a href="#download" onClick={() => setIsOpen(false)}>
             Last ned Ulfy
           </a>
         </nav>
@@ -466,15 +505,26 @@ function HomePage() {
               </p>
               <div className="hero-actions" id="download">
                 {storeLinks.map((link) => (
-                  <a
-                    key={link.alt}
-                    className="store-link"
-                    href={link.href}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <img src={link.src} alt={link.alt} />
-                  </a>
+                  link.available ? (
+                    <a
+                      key={link.alt}
+                      className="store-link"
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <img src={link.src} alt={link.alt} />
+                    </a>
+                  ) : (
+                    <span
+                      key={link.alt}
+                      className="store-link store-link-disabled"
+                      aria-disabled="true"
+                      title="Android-versjonen er ikke tilgjengelig ennå"
+                    >
+                      <img src={link.src} alt={link.alt} />
+                    </span>
+                  )
                 ))}
               </div>
             </div>
@@ -580,9 +630,10 @@ function HomePage() {
             </div>
             <div className="pricing-grid">
               {pricingCards.map((card) => (
-                <article key={card.index} className="pricing-card" data-animate="up" data-delay={card.delay}>
-                  <span className="pricing-index">{card.index}</span>
-                  <img src={card.icon} alt="" />
+                <article key={card.title} className="pricing-card" data-animate="up" data-delay={card.delay}>
+                  <span className="pricing-symbol" aria-hidden="true">
+                    <PricingIcon type={card.icon} />
+                  </span>
                   <h3>{card.title}</h3>
                   <p>{card.text}</p>
                 </article>

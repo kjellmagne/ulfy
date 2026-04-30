@@ -386,6 +386,7 @@ body.is-scrolled .site-header {
 
 .store-link {
   display: inline-flex;
+  position: relative;
   border-radius: 14px;
   overflow: hidden;
   box-shadow: var(--shadow);
@@ -395,6 +396,13 @@ body.is-scrolled .site-header {
 .store-link img {
   height: 58px;
   width: auto;
+}
+
+.store-link-disabled {
+  cursor: not-allowed;
+  filter: grayscale(1);
+  opacity: 0.62;
+  box-shadow: 0 12px 26px rgba(148, 163, 184, 0.18);
 }
 
 .subtle-note {
@@ -583,18 +591,25 @@ body.is-scrolled .site-header {
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.pricing-card img {
+.pricing-symbol {
   width: 64px;
   height: 64px;
-  object-fit: contain;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 1.1rem;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #f5f7fb, #e8edf5);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  color: #3d4a5d;
+  font-size: 1.7rem;
+  font-weight: 700;
+  box-shadow: 0 12px 24px rgba(148, 163, 184, 0.16);
 }
 
-.pricing-index {
-  display: inline-block;
-  margin-bottom: 1rem;
-  color: var(--primary);
-  font-weight: 800;
+.pricing-symbol svg {
+  width: 30px;
+  height: 30px;
 }
 
 .partners-layout {
@@ -694,6 +709,11 @@ body.is-scrolled .site-header {
   .store-link:hover {
     transform: translateY(-3px) scale(1.01);
     box-shadow: 0 22px 40px rgba(21, 35, 67, 0.18);
+  }
+
+  .store-link-disabled:hover {
+    transform: none;
+    box-shadow: 0 12px 26px rgba(148, 163, 184, 0.18);
   }
 
   .card:hover,
