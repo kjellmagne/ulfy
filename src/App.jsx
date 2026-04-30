@@ -614,7 +614,7 @@ function HomePage() {
             </div>
             <div className="illustration-wrap" data-animate="up-lg" data-delay="120">
               <img
-                src={asset("assets/privacy-illustration.png")}
+                src={asset("assets/security-illustration.png")}
                 alt="Illustrasjon for personvern og sikkerhet"
                 data-parallax="0.12"
               />
