@@ -498,14 +498,14 @@ function SiteFooter() {
         </div>
         <div>
           <h3>Retningslinjer</h3>
-          <Link to="/system-architecture">Arkitektur</Link>
-          <Link to="/privacy-policy">Personvernerklæring</Link>
-          <Link to="/accessibility-statement">Tilgjengelighetserklæring</Link>
+          <a href="/system-architecture">Arkitektur</a>
+          <a href="/privacy-policy">Personvernerklæring</a>
+          <a href="/accessibility-statement">Tilgjengelighetserklæring</a>
         </div>
         <div>
           <h3>Videre</h3>
           <a href={location.pathname === "/" ? "#kontakt" : "/#kontakt"}>Kontakt oss</a>
-          <Link to="/system-architecture">Se arkitektur</Link>
+          <a href="/system-architecture">Se arkitektur</a>
         </div>
       </div>
     </footer>
