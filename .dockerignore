@@ -4,5 +4,9 @@ node_modules
 dist
 npm-debug.log*
 .DS_Store
+.env
+.env.local
 wix-page.html
 asset-urls.txt
+SECRETS.md
+secrets.md

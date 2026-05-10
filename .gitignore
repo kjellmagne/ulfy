@@ -3,3 +3,7 @@ dist/
 .DS_Store
 .vite/
 npm-debug.log*
+.env
+.env.local
+SECRETS.md
+secrets.md
